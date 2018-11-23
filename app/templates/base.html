@@ -1,0 +1,27 @@
+{% extends 'bootstrap/base.html'%}
+<!-- Navbar block  -->
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{%block styles %}
+{{super()}}
+{{ simplemde.css}}
+{{ simplemde.js }}
+{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    {% if title %}
+    <title> {{ title }}</title>
+    {% else %}
+    <title> Welcome to Formidablog </title>
+    {% endif %}
+</head>
+<body>
+    {% block content %}
+    {% endblock%}
+</body>
+
+</html>
