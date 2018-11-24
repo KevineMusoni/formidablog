@@ -4,6 +4,8 @@
 {{ super() }}
 <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
 {% endblock %}
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,13 +13,13 @@
     {% if title %}
     <title> {{ title }}</title>
     {% else %}
-    <title> Welcome to Formidablog! </title>
+    <title>Formidablog </title>
     {% endif %}
 </head>
 
 <body>
 {% block content %}
-
+<h1 class="heading">Welcome to Formidablog!</h1>
 {% endblock%}
 
 </body>

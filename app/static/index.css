@@ -1,0 +1,28 @@
+@import
+url("https://fonts.googleapis.com/css?family=Italianno:300,400,700,900");
+@import
+url("https://fonts.googleapis.com/css?family=Economica:300,400,700,900");
+
+.heading{
+    margin-top: 100px;
+    text-align: center;
+    color: white;
+    font-family: 'Italianno', cursive;
+    font-size: 100px;
+}
+.logo{
+    margin-left: 590px;
+    height: 70px;
+    border-radius: 60%;
+}
+#title{
+    text-align: center;
+    color: white;
+    font-family:'Economica',san-serif;
+    font-size: 30px;
+}
+body{
+    background-image: url("image3.jpg");
+    background-size: cover;
+    height: 100vh;
+}
