@@ -3,14 +3,14 @@ from app import create_app
 from . import main
 from ..models import Comment, User
 from .forms import CommentForm,UpdateProfile
-from flask_loginuired, current_user
+from flask_login import login_required, current_user
 from .. import db,photos
 import markdown2
 
 @main.route('/')
-def index()
-title ='Home - Welcome to Formidablog'
-return render_template('index.html')
+def index():
+    title ='Home - Welcome to Formidablog'
+    return render_template('index.html')
 
 @main.route('/blog/new/<int:id>', methods = ['GET','POST'])
 @login_required
@@ -21,8 +21,8 @@ def new_comment(id):
     if form.validate_on_submit():
         title = form.title.data
         comment = form.comment.data
-        new_comment =(blog_id=blog.id, blog_title=title,blog_comment=comment, user=current_user)
-        new_comment.save_comment()
+        # new_comment =(blog_id=blog.id, blog_title=title,blog_comment=comment, user=current_user)
+        # new_comment.save_comment()
         return redirect(url_for('.blog', id=blog.id))
 
     title = f'{blog.title} comment'
