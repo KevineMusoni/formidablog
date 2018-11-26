@@ -6,9 +6,8 @@ from datetime import datetime
 
 class Blog(db.Model):
     __tablename__ = 'blogs'
-    # def __init__(self,id,title,comment,user_id):
+
     id = db.Column(db.Integer, primary_key=True)
-    # blog_id = db.Column(db.Integer)
     blog_title = db.Column(db.String)
     blog_comment = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
@@ -49,10 +48,9 @@ class Comment(db.Model):
         comments = Comment.query.filter_by(blog_id=id).all()
         return comments
 
-    def __init__(self,blog_id,title,imageurl,comment):
+    def __init__(self,blog_id,title,comment):
         self.blog_id = blog_id
         self.title = title
-        self.imageurl = imageurl
         self.comment = comment
         
     @classmethod

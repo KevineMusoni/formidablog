@@ -103,16 +103,16 @@ def add_blog():
 @main.route("/blog/<int:id>",methods = ["GET","POST"])
 def display(id):
     blog = Blog.query.filter_by(id=id).first()
-    # blog_title = blog.blog_title
     form = AddComment()
     if form.validate_on_submit():
         comment = form.comment.data
-        new_comment = Comment(blog_comment = comment, blog=blog)
+        blog_title = blog.blog_title
+        new_comment = Comment(blog_id=blog.id,title= blog_title,comment = comment)
         new_comment.save_comment()
         return redirect(url_for('main.index'))
     # comments = Comment.query.filter_by(blog_id = blog.id)
-    title = blog.blog_title
-    return render_template("blog.html", title = blog_title, blog = blog,form = form,comments = comments)
+    blog_title = blog.blog_title
+    return render_template("blog.html", blog_title = blog_title, blog = blog,form = form)
 
 # delete comment
 @main.route("/delete/comment/<id>")

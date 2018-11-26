@@ -31,10 +31,8 @@
             <div>
                 {% for blog in blog %}
                 <div class="form3">
-                    <div>
-                        <img class="img-responsive" src="{{url_for('static', filename=blog.image)}}" alt="">
-                    </div>
                     <h2>{{blog.blog_title}}</h2>
+                    <p>{{blog.blog}}</p>
                     <div class="btn">
                         <a href="{{url_for('main.display',id =blog.id)}}">view full blog</a>
                     </div>
