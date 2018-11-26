@@ -13,15 +13,16 @@ pip3 install -r requirements.txt
 
 ## step-by step guide
 *  User Login/Registration
-*  Create Pitch
-*  Post Pitch
-* View pitch posted
+*  Create Blog
+*  Post Blog
+*  View Blogs created
+*  Comment
 
 ## Behavior Driven Development
 | input              | output                     |
 |---------------     |---------------             |
 | Login/sign up      | Create pitch page          |
-| view pitch         | upvote/downvote and comment|
+| View Blog          | upvote/downvote and comment|
 
 ## Technologies Used
 * Python3.6
