@@ -102,17 +102,21 @@ def add_blog():
 #display blog -> blog.html
 @main.route("/blog/<int:id>",methods = ["GET","POST"])
 def display(id):
+    user = User.query.filter_by(id=id).first()
     blog = Blog.query.filter_by(id=id).first()
+    comment = Comment.get_comments(id=id)
+
     form = AddComment()
     if form.validate_on_submit():
         comment = form.comment.data
         blog_title = blog.blog_title
-        new_comment = Comment(blog_id=blog.id,title= blog_title,comment = comment)
+        new_comment = Comment(blog_id=blog.id, blog_title=blog_title,blog_comment = comment, user_id=current_user.id)
+        print(new_comment.blog_comment)
         new_comment.save_comment()
         return redirect(url_for('main.index'))
     # comments = Comment.query.filter_by(blog_id = blog.id)
     blog_title = blog.blog_title
-    return render_template("blog.html", blog_title = blog_title, blog = blog,form = form)
+    return render_template("blog.html", blog_title = blog_title, blog = blog,form = form, comments=comment)
 
 # delete comment
 @main.route("/delete/comment/<id>")

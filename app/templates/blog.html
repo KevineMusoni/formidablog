@@ -13,6 +13,7 @@
         <h2>{{blog.title}}</h2>
             <p>{{blog.review}}</p>
     </div>
+
     <div class="row">
         <div class="form3">
             <h2>Blog Comments</h2>
@@ -21,11 +22,10 @@
             <h3>comments</h3>
             {% if comments %}
             {% for comment in comments%}
-            {% if current_user.is_authenticated %}<a href="{{url_for('main.delete_comment', id = comment.id)}}"><i
-                        class="fas fa-trash-alt"></i></a>{% endif %}</p>
+            {% if current_user.is_authenticated %}<a href="{{url_for('main.delete_comment', id = comment.id)}}">Delete comment</a>{% endif %}</p>
             {% endfor%}
             {% else %}
-            <p>There are no comments</p>
+            <p>No comments found</p>
             {% endif %}
         </div>
     </div>

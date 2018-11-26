@@ -5,7 +5,7 @@ from flask_login import UserMixin
 from datetime import datetime
 
 class Blog(db.Model):
-    __tablename__ = 'blogs'
+    __tablename__ = 'blog'
 
     id = db.Column(db.Integer, primary_key=True)
     blog_title = db.Column(db.String)
@@ -32,6 +32,7 @@ class Comment(db.Model):
     __tablename__ = 'comments'
 
     id = db.Column(db.Integer, primary_key=True)
+    blog_id= db.Column(db.Integer, db.ForeignKey('blog.id'))
     blog_title = db.Column(db.String)
     blog_comment = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
@@ -41,17 +42,19 @@ class Comment(db.Model):
     def save_comment(self):
         db.session.add(self)
         db.session.commit()
-        Comment.all_comments.append(self)
+        # Comment.all_comments.append(self)
 
     @classmethod
     def get_comments(cls,id):
         comments = Comment.query.filter_by(blog_id=id).all()
         return comments
 
-    def __init__(self,blog_id,title,comment):
-        self.blog_id = blog_id
-        self.title = title
-        self.comment = comment
+    # def __init__(self,blog_id,title,comment, user_id):
+    #     self.blog_id = blog_id
+    #     self.title = title
+    #     # self.imageurl = imageurl
+    #     self.comment = comment
+
         
     @classmethod
     def clear_comments(cls):
@@ -70,6 +73,7 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(255))
 
     comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
+    blog = db.relationship('Blog',backref = 'user',lazy = "dynamic")
 
     def __repr__(self):
         return f'User {self.username}'
