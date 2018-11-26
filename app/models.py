@@ -6,15 +6,14 @@ from datetime import datetime
 
 class Blog(db.Model):
     __tablename__ = 'blogs'
-    # def __init__(self,id,title,comment,posted,user_id):
+    # def __init__(self,id,title,comment,user_id):
     id = db.Column(db.Integer, primary_key=True)
     # blog_id = db.Column(db.Integer)
     blog_title = db.Column(db.String)
     blog_comment = db.Column(db.String)
-    posted = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
-    Blogs = []
+    # Blogs = []
 
     def save_blog(self):
         db.session.add(self)
@@ -37,7 +36,6 @@ class Comment(db.Model):
     blog_id = db.Column(db.Integer)
     blog_title = db.Column(db.String)
     blog_comment = db.Column(db.String)
-    posted = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     all_comments = []
@@ -73,7 +71,6 @@ class User(db.Model, UserMixin):
     profile_pic_path = db.Column(db.String())
     password_secure = db.Column(db.String(255))
     password_hash = db.Column(db.String(255))
-    posted = db.Column(db.DateTime, default=datetime.utcnow)
 
     comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
 

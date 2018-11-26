@@ -21,32 +21,25 @@
 {% block content %}
 <h1 class="heading">Welcome to Formidablog!</h1>
 <h3 id="sub-title"><strong>"create, read & share stunning poems"</strong></h3>
+
+
 <div class="view-blogs">
 <h1>Blogs</h1>
     <div class="row">
         <div class="form1">
             <div>
-                {% for blog in blogs %}
+                {% for blog in blog %}
                 <div class="form3">
                     <div>
                         <img class="img-responsive" src="{{url_for('static', filename=blog.image)}}" alt="">
                     </div>
                     <h2>{{blog.blog_title}}</h2>
-                    <h3>
-                        <p>{{blog.posted[0:10]}} at {{blog.posted[11:16]}}</p>
-                    </h3>
-                    <div class="content">
-                        <p>{{blog.content[0:200] + "..."}}</p>
-                    </div>
                     <div class="btn">
                         <a href="{{url_for('main.display',id =blog.id)}}">view full blog</a>
                     </div>
                 </div>
                 {% endfor %}
             </div>
-        </div>
-        <div class="form2">
-            {{wtf.quick_form(form)}}
         </div>
         </div>
     </div>

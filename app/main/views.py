@@ -13,9 +13,9 @@ import markdown2
 @main.route('/')
 def index():
     title ='Home - Welcome to Formidablog'
-    blog= Blogs.query.all()
+    blog= Blog.query.all()
     print(dir(blog))
-    return render_template('index.html', blogs=blogs)
+    return render_template('index.html', blog=blog)
 
 #about us page function
 @main.route('/about')
@@ -87,8 +87,6 @@ def add_blog():
     if form.validate_on_submit():
         title = form.title.data
         review = form.review.data
-        posted = str(datetime.now())
-        print(posted)
         if "photo" in request.files:
             pic = photos.save(request.files["photo"])
             file_path = f"photos/{pic}"
