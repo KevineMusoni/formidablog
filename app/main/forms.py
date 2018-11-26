@@ -11,7 +11,6 @@ class UpdateBio(FlaskForm):
     bio = StringField("Bio")
     submit = SubmitField("Update")
 
-# blog subscription form
 class EmailForm(FlaskForm):
     email = StringField("Enter email", validators = [Required()])
     submit = SubmitField("subscribe")

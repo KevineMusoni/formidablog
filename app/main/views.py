@@ -70,14 +70,8 @@ def single_comment(id):
     if comment is None:
         abort(404)
     format_comment = markdown2.markdown(comment.blog_comment, extras=["code-friendly", "fenced-code-blocks"])
-    return render_template('comment.html', comment=comment, format_comment=format_comment)\
-@main.route("/delete/<id>")
-def delete(id):
-    user_id = blog.user_id
-    db.session.delete(blog)
-    db.session.commit()
-    blog = Blog.query.filter_by(id = id).first()
-    return redirect(url_for('main.profile', id = user_id))
+    return render_template('comment.html', comment=comment, format_comment=format_comment)
+
 #add blog
 @main.route("/add/blog/",methods = ["GET","POST"])
 @login_required
@@ -99,6 +93,14 @@ def add_blog():
         return redirect(url_for('main.index'))
     return render_template("add_blog.html",form = form)
 
+@main.route("/delete/<id>")
+def delete_blog(id):
+    blog = Blog.query.filter_by(id = id).first()
+    user_id = blog.user_id
+    db.session.delete(post)
+    db.session.commit()
+
+    return redirect(url_for('main.profile', id = user_id))
 #display blog -> blog.html
 @main.route("/blog/<int:id>",methods = ["GET","POST"])
 def display(id):
@@ -114,7 +116,6 @@ def display(id):
         print(new_comment.blog_comment)
         new_comment.save_comment()
         return redirect(url_for('main.index'))
-    # comments = Comment.query.filter_by(blog_id = blog.id)
     blog_title = blog.blog_title
     return render_template("blog.html", blog_title = blog_title, blog = blog,form = form, comments=comment)
 
