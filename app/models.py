@@ -5,10 +5,26 @@ from flask_login import UserMixin
 from datetime import datetime
 
 class Blog:
-    def __init__(self,id,title,overview,poster,vote_average,vote_count):
+    def __init__(self,id,title,review,image, time):
         self.id =id
         self.title = title
+        self.review=review
+        self.image=image
+        self.time=time
 
+    def save_blog(self):
+        db.session.add(self)
+        db.session.commit()
+        Blog.new_blog.append(self)
+
+    @classmethod
+    def get_blog(cls,id):
+        blogs = Blog.query.filter_by(blog_id=id).all()
+        return blogs
+    @classmethod
+    def get_comments(cls,id):
+        comments = Comment.query.filter_by(blog_id=id).all()
+        return comments
 class Comment(db.Model):
 
     __tablename__ = 'comments'

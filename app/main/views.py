@@ -1,7 +1,7 @@
 from flask import render_template,request,redirect,url_for,abort
 from app import create_app
 from . import main
-from ..models import Comment, User
+from ..models import Comment, User,Blog
 from .forms import UpdateBio,BlogForm,AddComment,EmailForm
 from flask_login import login_required, current_user
 from .. import db,photos
@@ -80,8 +80,10 @@ def delete(id):
 @main.route("/add/blog/",methods = ["GET","POST"])
 @login_required
 def add_blog():
+    # print(current_user.id)
     form = BlogForm()
     if form.validate_on_submit():
+        title = form.title.data
         review = form.review.data
         posted = str(datetime.now())
         print(posted)
@@ -89,7 +91,7 @@ def add_blog():
             pic = photos.save(request.files["photo"])
             file_path = f"photos/{pic}"
             image = file_path
-        new_blog = Blog(title = title, review = review, user = current_user,image = image,time = posted)
+        new_blog = Blog(id=current_user.id,title=title,review = review,image = image,time = posted)
         new_blog.save_blog()
         emails = Email.query.all()
         return redirect(url_for('main.index'))
