@@ -8,15 +8,19 @@ from .. import db,photos
 from datetime import datetime
 import markdown2
 
+# homepage function
 @main.route('/')
 def index():
     title ='Home - Welcome to Formidablog'
     return render_template('index.html')
 
+#about us page function
 @main.route('/about')
 def about():
     title ='About - About Us '
     return render_template('about/about.html')
+
+# user profile page function
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
@@ -26,6 +30,7 @@ def profile(uname):
 
     return render_template("profile/profile.html", user = user)
 
+#update profile
 @login_required
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
 def update_profile(uname):
