@@ -60,13 +60,16 @@ def update_pic(uname):
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
 
+# blog post comment functions
 @main.route('/comment/<int:id>')
 def single_comment(id):
     comment = Comment.query.get(id)
     if comment is None:
         abort(404)
     format_comment = markdown2.markdown(comment.blog_comment, extras=["code-friendly", "fenced-code-blocks"])
-    return render_template('comment.html', comment=comment, format_comment=format_comment)
+    return render_template('comment.html', comment=comment, format_comment=format_comment)\
+
+#add blog
 @main.route("/add/blog/",methods = ["GET","POST"])
 @login_required
 def add_blog():
@@ -86,6 +89,7 @@ def add_blog():
 
     return render_template("add_blog.html",form = form)
 
+#display blog -> display.html
 @main.route("/blog/<int:id>",methods = ["GET","POST"])
 def display(id):
     blog = Blog.query.filter_by(id = id).first()
