@@ -21,26 +21,25 @@
 {% block content %}
 <h1 class="heading">Welcome to Formidablog!</h1>
 <h3 id="sub-title"><strong>"create, read & share stunning poems"</strong></h3>
-{% endblock%}
 <div class="view-blogs">
 <h1>Blogs</h1>
     <div class="row">
         <div class="form1">
             <div>
-                {% for post in posts %}
+                {% for blog in blogs %}
                 <div class="form3">
                     <div>
-                        <img class="img-responsive" src="{{url_for('static', filename=post.image)}}" alt="">
+                        <img class="img-responsive" src="{{url_for('static', filename=blog.image)}}" alt="">
                     </div>
-                    <h2>{{post.title}}</h2>
+                    <h2>{{blog.blog_title}}</h2>
                     <h3>
-                        <p>{{post.time[0:10]}} at {{post.time[11:16]}}</p>
+                        <p>{{blog.posted[0:10]}} at {{blog.posted[11:16]}}</p>
                     </h3>
                     <div class="content">
-                        <p>{{post.content[0:200] + "..."}}</p>
+                        <p>{{blog.content[0:200] + "..."}}</p>
                     </div>
                     <div class="btn">
-                        <a href="{{url_for('main.display',id = post.id)}}">view full blog</a>
+                        <a href="{{url_for('main.display',id =blog.id)}}">view full blog</a>
                     </div>
                 </div>
                 {% endfor %}
@@ -51,5 +50,7 @@
         </div>
         </div>
     </div>
+{% endblock%}
+
 </body>
 </html>

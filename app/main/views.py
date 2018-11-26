@@ -13,7 +13,9 @@ import markdown2
 @main.route('/')
 def index():
     title ='Home - Welcome to Formidablog'
-    return render_template('index.html')
+    blog= Blogs.query.all()
+    print(dir(blog))
+    return render_template('index.html', blogs=blogs)
 
 #about us page function
 @main.route('/about')
@@ -95,9 +97,8 @@ def add_blog():
         db.session.add(new_blog)
         db.session.commit()
         # new_blog.save_blog(id)
-        emails = Email.query.all()
+        # emails = Email.query.all()
         return redirect(url_for('main.index'))
-
     return render_template("add_blog.html",form = form)
 
 #display blog -> display.html
