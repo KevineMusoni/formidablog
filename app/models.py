@@ -33,7 +33,6 @@ class Comment(db.Model):
     __tablename__ = 'comments'
 
     id = db.Column(db.Integer, primary_key=True)
-    blog_id = db.Column(db.Integer)
     blog_title = db.Column(db.String)
     blog_comment = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
@@ -50,8 +49,8 @@ class Comment(db.Model):
         comments = Comment.query.filter_by(blog_id=id).all()
         return comments
 
-    def __init__(self,movie_id,title,imageurl,comment):
-        self.movie_id = movie_id
+    def __init__(self,blog_id,title,imageurl,comment):
+        self.blog_id = blog_id
         self.title = title
         self.imageurl = imageurl
         self.comment = comment
@@ -73,7 +72,6 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(255))
 
     comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
-
 
     def __repr__(self):
         return f'User {self.username}'

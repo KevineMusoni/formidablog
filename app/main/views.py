@@ -91,7 +91,7 @@ def add_blog():
             pic = photos.save(request.files["photo"])
             file_path = f"photos/{pic}"
             image = file_path
-        new_blog = Blog(blog_title = form.title.data, user_id = current_user.id,)
+        new_blog = Blog(blog_title = form.title.data, user_id = current_user.id)
         db.session.add(new_blog)
         db.session.commit()
         # new_blog.save_blog(id)
@@ -99,21 +99,20 @@ def add_blog():
         return redirect(url_for('main.index'))
     return render_template("add_blog.html",form = form)
 
-#display blog -> display.html
+#display blog -> blog.html
 @main.route("/blog/<int:id>",methods = ["GET","POST"])
 def display(id):
-    blog = Blog.query.filter_by(id = id).first()
-    title = blog.title
+    blog = Blog.query.filter_by(id=id).first()
+    # blog_title = blog.blog_title
     form = AddComment()
     if form.validate_on_submit():
-        name = form.name.data
-        review = form.comment.data
-        new_comment = Comment(name = name, review = review, blog = blog)
+        comment = form.comment.data
+        new_comment = Comment(blog_comment = comment, blog=blog)
         new_comment.save_comment()
-        return redirect(url_for('main.display', id = blog.id))
-    comments = Comment.query.filter_by(blog_id = blog.id)
-    title = blog.title
-    return render_template("blog.html", title = title, blog = blog,form = form,comments = comments)
+        return redirect(url_for('main.index'))
+    # comments = Comment.query.filter_by(blog_id = blog.id)
+    title = blog.blog_title
+    return render_template("blog.html", title = blog_title, blog = blog,form = form,comments = comments)
 
 # delete comment
 @main.route("/delete/comment/<id>")

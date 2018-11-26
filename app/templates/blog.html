@@ -14,12 +14,11 @@
             <img class="text-center img-responsive" src="{{url_for('static', filename=blog.image)}}" alt="">
         </div>
         <h2>{{blog.title}}</h2>
-        <p>{{blog.time[0:10]}} at {{blog.time[11:16]}}</p>
-            <p>{{blog.content}}</p>
+            <p>{{blog.review}}</p>
     </div>
     <div class="row">
         <div class="form3">
-            <p>comment</p>
+            <h2>Blog Comments</h2>
             {{wtf.quick_form(form)}}
         </div>
             <h3>comments</h3>
