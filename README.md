@@ -3,7 +3,7 @@ Personal blogging website for users to create stunning websites and share their 
 
 ## Setup/Installation Requirements 
 Deployed Link:
-Github link :https://github.com/KevineMusoni/Pitch-App.git
+Github link :https://github.com/KevineMusoni/formidablog.git
 
 ## Installing Dependencies
 pip3 install -r requirements.txt
@@ -19,7 +19,7 @@ pip3 install -r requirements.txt
 *  Comment
 
 ### User Stories
- *As a user, I would like to view the blog posts submitted
+* As a user, I would like to view the blog posts submitted
 * As a user, I would like to comment on blog posts
 * As a user, I would like to view the most recent posts
 * As a user, I would like to alerted when a new post is made by joining a subscription.
