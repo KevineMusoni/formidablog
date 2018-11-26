@@ -21,7 +21,11 @@
 {% block content %}
 <div class="upper-content">
 <h1 class="heading">Welcome to Formidablog!</h1>
-<h3 id="sub-title"><strong>"create, read & share stunning poems"</strong></h3>
+<h3 id="sub-title" style="text-align:center"><strong>"create, read & share stunning poems"</strong></h3>
+<h2 class="title"><b>Read Blogs Below</b></h2>
+<h1 style="color:black">v</h1>
+<h1 style="color:black">v</h1>
+<h1 style="color:black">v</h1>
 </div>
 
 <div class="view-blogs">
@@ -32,9 +36,8 @@
                 {% for blog in blog %}
                 <div class="form3">
                     <h2>{{blog.blog_title}}</h2>
-                    <p>{{blog.blog}}</p>
                     <div class="btn">
-                        <a href="{{url_for('main.display',id =blog.id)}}">view full blog</a>
+                        <a href="{{url_for('main.display',id =blog.id)}}">Comment</a>
                     </div>
                 </div>
                 {% endfor %}

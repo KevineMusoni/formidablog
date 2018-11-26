@@ -80,7 +80,6 @@ def add_blog():
     form = BlogForm()
     if form.validate_on_submit():
         title = form.title.data
-        review = form.review.data
         if "photo" in request.files:
             pic = photos.save(request.files["photo"])
             file_path = f"photos/{pic}"
