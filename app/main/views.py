@@ -107,17 +107,17 @@ def display(id):
 
 @main.route("/delete/<id>")
 def delete(id):
-    blog = Blog.query.filter_by(id = id).first()
     user_id = blog.user_id
     db.session.delete(blog)
     db.session.commit()
-
+    blog = Blog.query.filter_by(id = id).first()
     return redirect(url_for('main.profile', id = user_id))
 
+# delete comment
 @main.route("/delete/comment/<id>")
 def delete_comment(id):
-    comment = Comment.query.filter_by(id = id).first()
     blog_id = comment.blog.id
     db.session.delete(comment)
     db.session.commit()
+    comment = Comment.query.filter_by(id = id).first()
     return redirect(url_for("main.display", id = blog_id))
