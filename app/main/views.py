@@ -6,6 +6,7 @@ from .forms import UpdateBio,BlogForm,AddComment,EmailForm
 from flask_login import login_required, current_user
 from .. import db,photos
 from datetime import datetime
+#single user
 import markdown2
 
 # homepage function
@@ -68,7 +69,13 @@ def single_comment(id):
         abort(404)
     format_comment = markdown2.markdown(comment.blog_comment, extras=["code-friendly", "fenced-code-blocks"])
     return render_template('comment.html', comment=comment, format_comment=format_comment)\
-
+@main.route("/delete/<id>")
+def delete(id):
+    user_id = blog.user_id
+    db.session.delete(blog)
+    db.session.commit()
+    blog = Blog.query.filter_by(id = id).first()
+    return redirect(url_for('main.profile', id = user_id))
 #add blog
 @main.route("/add/blog/",methods = ["GET","POST"])
 @login_required
@@ -104,14 +111,6 @@ def display(id):
     comments = Comment.query.filter_by(blog_id = blog.id)
     title = blog.title
     return render_template("blog.html", title = title, blog = blog,form = form,comments = comments)
-
-@main.route("/delete/<id>")
-def delete(id):
-    user_id = blog.user_id
-    db.session.delete(blog)
-    db.session.commit()
-    blog = Blog.query.filter_by(id = id).first()
-    return redirect(url_for('main.profile', id = user_id))
 
 # delete comment
 @main.route("/delete/comment/<id>")
