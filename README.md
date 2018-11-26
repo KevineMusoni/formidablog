@@ -5,10 +5,11 @@ Personal blogging website for users to create stunning websites and share their 
 Deployed Link:
 Github link :https://github.com/KevineMusoni/Pitch-App.git
 
-## Running the server
-./start.sh
 ## Installing Dependencies
 pip3 install -r requirements.txt
+
+## Running the server
+./start.sh
 
 ## step-by step guide
 *  User Login/Registration
