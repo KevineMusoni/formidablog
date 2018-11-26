@@ -4,18 +4,22 @@ from . import login_manager
 from flask_login import UserMixin
 from datetime import datetime
 
-class Blog:
-    def __init__(self,id,title,review,image, time):
-        self.id =id
-        self.title = title
-        self.review=review
-        self.image=image
-        self.time=time
+class Blog(db.Model):
+    __tablename__ = 'blogs'
+    # def __init__(self,id,title,comment,posted,user_id):
+    id = db.Column(db.Integer, primary_key=True)
+    # blog_id = db.Column(db.Integer)
+    blog_title = db.Column(db.String)
+    blog_comment = db.Column(db.String)
+    posted = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+
+    Blogs = []
 
     def save_blog(self):
         db.session.add(self)
-        db.session.commit()
-        Blog.new_blog.append(self)
+        db.session.commit(self)
+        # Blog.Blogs.append(self)
 
     @classmethod
     def get_blog(cls,id):

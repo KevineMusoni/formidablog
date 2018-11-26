@@ -91,8 +91,10 @@ def add_blog():
             pic = photos.save(request.files["photo"])
             file_path = f"photos/{pic}"
             image = file_path
-        new_blog = Blog(id=current_user.id,title=title,review = review,image = image,time = posted)
-        new_blog.save_blog()
+        new_blog = Blog(blog_title = form.title.data, user_id = current_user.id,)
+        db.session.add(new_blog)
+        db.session.commit()
+        # new_blog.save_blog(id)
         emails = Email.query.all()
         return redirect(url_for('main.index'))
 
