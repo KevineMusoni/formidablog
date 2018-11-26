@@ -2,9 +2,10 @@ from flask import render_template,request,redirect,url_for,abort
 from app import create_app
 from . import main
 from ..models import Comment, User
-from .forms import CommentForm,UpdateProfile
+from .forms import UpdateBio,BlogForm,EmailForm,AddComment
 from flask_login import login_required, current_user
 from .. import db,photos
+from datetime import datetime
 import markdown2
 
 @main.route('/')
@@ -12,21 +13,10 @@ def index():
     title ='Home - Welcome to Formidablog'
     return render_template('index.html')
 
-@main.route('/blog/new/<int:id>', methods = ['GET','POST'])
-@login_required
-def new_comment(id):
-    form = CommentForm()
-    blog = get_blog(id)
-
-    if form.validate_on_submit():
-        title = form.title.data
-        comment = form.comment.data
-        # new_comment =(blog_id=blog.id, blog_title=title,blog_comment=comment, user=current_user)
-        # new_comment.save_comment()
-        return redirect(url_for('.blog', id=blog.id))
-
-    title = f'{blog.title} comment'
-    return render_template('new_comment.html', title=title, comment_form=form, blog=blog)
+@main.route('/about')
+def about():
+    title ='About - About Us '
+    return render_template('about/about.html')
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
@@ -71,3 +61,53 @@ def single_comment(id):
         abort(404)
     format_comment = markdown2.markdown(comment.blog_comment, extras=["code-friendly", "fenced-code-blocks"])
     return render_template('comment.html', comment=comment, format_comment=format_comment)
+@main.route("/add/blog/",methods = ["GET","POST"])
+@login_required
+def add_blog():
+    form = BlogForm()
+    if form.validate_on_submit():
+        review = form.review.data
+        posted = str(datetime.now())
+        print(posted)
+        if "photo" in request.files:
+            pic = photos.save(request.files["photo"])
+            file_path = f"photos/{pic}"
+            image = file_path
+        new_blog = Blog(title = title, review = review, user = current_user,image = image,time = posted)
+        new_blog.save_blog()
+        emails = Email.query.all()
+        return redirect(url_for('main.index'))
+
+    return render_template("add_blog.html",form = form)
+
+@main.route("/blog/<int:id>",methods = ["GET","POST"])
+def display(id):
+    blog = Blog.query.filter_by(id = id).first()
+    title = blog.title
+    form = AddComment()
+    if form.validate_on_submit():
+        name = form.name.data
+        review = form.comment.data
+        new_comment = Comment(name = name, review = review, blog = blog)
+        new_comment.save_comment()
+        return redirect(url_for('main.display', id = blog.id))
+    comments = Comment.query.filter_by(blog_id = blog.id)
+    title = blog.title
+    return render_template("blog.html", title = title, blog = blog,form = form,comments = comments)
+
+@main.route("/delete/<id>")
+def delete(id):
+    blog = Blog.query.filter_by(id = id).first()
+    user_id = blog.user_id
+    db.session.delete(blog)
+    db.session.commit()
+
+    return redirect(url_for('main.profile', id = user_id))
+
+@main.route("/delete/comment/<id>")
+def delete_comment(id):
+    comment = Comment.query.filter_by(id = id).first()
+    blog_id = comment.blog.id
+    db.session.delete(comment)
+    db.session.commit()
+    return redirect(url_for("main.display", id = blog_id))

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles%}
+{{super()}}
+<link rel="stylesheet" href="../static/index.css">
+{% endblock %}
+
+{% block content%}
+<div class="container">
+    <form class="form-group" method="post" enctype="multipart/form-data">
+        <h4 style="color:black">Blog image</h4>
+        <input type="file" name="photo" id="" class="form-control" required>
+        {{form.hidden_tag()}}
+        {{form.title.label}}
+        {{form.title(class = "form-control")}}
+        {{form.review.label}}
+        {{form.review(class = "form-control")}}
+        {{form.submit(class = "btn")}}
+    </form>
+</div>
+{% endblock%}

@@ -11,18 +11,18 @@
             </button>
         </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav" style="margin-left:41%">
+            <ul class="nav navbar-nav">
                 <li><a href="/">HOME</a></li>
                 <li><a href="/">ABOUT</a></li>
                 <!-- <li><a href="/">Sign in</a></li> -->
                 <ul class="nav navbar-nav navbar-right">
-                    {% if current_user.is_authenticated %}
-                    <li style="color:white;padding:15px;">{{current_user.username}}</li>
-                    <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
-                    <li><a href="{{url_for('auth.logout')}}">SIGN OUT</a></li>
-                    {%else%}
-                    <li><a href="{{url_for('auth.login')}}">SIGN IN</a></li>
-                    {%endif%}
+                    {% if current_user.is_authenticated%}
+                    <li><a href="{{url_for('main.add_blog')}}">Add Blog</a></li>
+                    <li><a href="{{url_for('main.profile',uname=current_user.username)}}">{{current_user.username}}</a></li>
+                    <li><a href="{{url_for('auth.logout')}}">Logout</a></li>
+                    {% else %}
+                    <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
+                    {% endif %}
                 </ul>
             </ul>
         </div>

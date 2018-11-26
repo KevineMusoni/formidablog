@@ -4,11 +4,17 @@ url("https://fonts.googleapis.com/css?family=Italianno:300,400,700,900");
 url("https://fonts.googleapis.com/css?family=Economica:300,400,700,900");
 
 .heading{
-    margin-top: 100px;
+    margin-top: 20px;
     text-align: center;
     color: white;
     font-family: 'Italianno', cursive;
     font-size: 100px;
+}
+#sub-title{
+    color: white;
+    font-family:'Economica',san-serif;
+    font-size: 60px;
+    text-align: center;
 }
 .logo{
     margin-left: 590px;
@@ -17,7 +23,7 @@ url("https://fonts.googleapis.com/css?family=Economica:300,400,700,900");
 }
 #title{
     text-align: center;
-    color: white;
+    color: rgb(216, 203, 203);
     font-family:'Economica',san-serif;
     font-size: 30px;
 }
@@ -25,4 +31,5 @@ body{
     background-image: url("image3.jpg");
     background-size: cover;
     height: 100vh;
+    opacity: 0.8;
 }
