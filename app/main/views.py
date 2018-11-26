@@ -2,7 +2,7 @@ from flask import render_template,request,redirect,url_for,abort
 from app import create_app
 from . import main
 from ..models import Comment, User
-from .forms import UpdateBio,BlogForm,EmailForm,AddComment
+from .forms import UpdateBio,BlogForm,AddComment,EmailForm
 from flask_login import login_required, current_user
 from .. import db,photos
 from datetime import datetime
