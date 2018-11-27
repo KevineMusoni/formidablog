@@ -31,7 +31,7 @@ pip3 install -r requirements.txt
 ## Behavior Driven Development
 | input              | output                     |
 |---------------     |---------------             |
-| Login/sign up      | Create pitch page          |
+| Login/sign up      | Create blog post          |
 | View Blog          |                     comment|
 
 ## Technologies Used
