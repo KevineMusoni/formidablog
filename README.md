@@ -2,7 +2,7 @@
 Personal blogging website for users to create stunning websites and share their ideas to the world 
 
 ## Setup/Installation Requirements 
-Deployed Link:
+Deployed Link:https://formidablog.herokuapp.com
 Github link :https://github.com/KevineMusoni/formidablog.git
 
 ## Installing Dependencies
